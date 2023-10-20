@@ -43,11 +43,7 @@ void runPrompt() {
 }
 
 int main(int argc, char** argv) {
-    string* x;
-    string y = "hi";
-    x = &y;
-    string z = *x;
-    cout << *x << endl;
+    cout << "hi" << endl;
 
     if (argc > 2) {
         cout << "Usage: cLox [filename]" << endl;
