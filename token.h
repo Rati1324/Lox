@@ -13,7 +13,8 @@ class Token {
 
     public:
         Token(TokenType type, std::string lexeme, std::string literal, int line);
-        std::string toString();
+        std::string toString() const;
+            
 };
 
 #endif

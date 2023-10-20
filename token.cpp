@@ -1,23 +1,16 @@
 #include "tokenTypes.h"
+#include "token.h"
 #include <string>
 using namespace std;
 
-class Token {
-    private:
-        TokenType type;
-        string lexeme;
-        string literal;
-        int line;
+Token::Token(TokenType type, std::string lexeme, std::string literal, int line) {
+    this->type = type;
+    this->lexeme = lexeme;
+    this->literal = literal;
+    this->line = line;
+}
 
-    public:
-        Token(TokenType type, string lexeme, string literal, int line) {
-            this->type = type;
-            this->lexeme = lexeme;
-            this->literal = literal;
-            this->type = type;
-        }
-
-        string toString() {
-            return type + " " + lexeme + " " + literal;
-        }
-};
+string Token::toString() const{
+    // return type + " " + lexeme + " " + literal;
+    return lexeme;
+}

@@ -46,9 +46,10 @@ void runPrompt() {
 }
 
 int main(int argc, char** argv) {
-    cout << "hi" << endl;
+    // cout << "hi" << endl;
     Token t = Token(LEFT_PAREN, "(", "", 1);
-    // cout << tk.toString() << endl;
+    // Token t = Token();
+    cout << t.toString() << endl;
     if (argc > 2) {
         cout << "Usage: cLox [filename]" << endl;
     } else if (argc == 2) {
