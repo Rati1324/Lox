@@ -1,8 +1,10 @@
 #include <iostream>
-// #include <cstdio>
 #include <fstream>
 #include <string>
+#include "TokenTypes.h"
 using namespace std;
+
+bool hadError = false;
 
 void run(string source) {
     for (int i = 0; i < source.length(); i++) {
@@ -10,7 +12,7 @@ void run(string source) {
     }
 }
 
-string read_file(char* filename) {
+void runFile(char* filename) {
     fstream my_file;
     string source;
     my_file.open(filename, ios::in);
@@ -25,7 +27,8 @@ string read_file(char* filename) {
         }
         my_file.close();
     }
-    return source;
+    run(source);
+    if (hadError) exit(64);
 }
 
 void runPrompt() {
@@ -35,6 +38,7 @@ void runPrompt() {
         getline(cin, userInput);
         if (userInput == "") break;
         run(userInput);
+        hadError = false;
     }
 }
 
@@ -42,11 +46,9 @@ int main(int argc, char** argv) {
     if (argc > 2) {
         cout << "Usage: cLox [filename]" << endl;
     } else if (argc == 2) {
-        string source = read_file(argv[1]);
-        run(source);
+        runFile(argv[1]);
     } else {
         runPrompt();
     }
-
     return 0;
 }
