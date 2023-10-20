@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "TokenTypes.h"
+#include "tokenTypes.h"
 using namespace std;
 
 bool hadError = false;
@@ -43,6 +43,12 @@ void runPrompt() {
 }
 
 int main(int argc, char** argv) {
+    string* x;
+    string y = "hi";
+    x = &y;
+    string z = *x;
+    cout << *x << endl;
+
     if (argc > 2) {
         cout << "Usage: cLox [filename]" << endl;
     } else if (argc == 2) {
