@@ -1,9 +1,8 @@
-#ifndef SCANNER_H
-#define SCANNER_H
 #include <string>
 #include <iostream>
 #include <vector>
 #include "token.h"
+
 using namespace std;
 
 class Scanner {
@@ -14,9 +13,27 @@ class Scanner {
         int current = 0;
         int line = 1;
 
-        scanToken() {
-            char 
+        void scanToken() {
+            char c = source[current];
+            switch (c) {
+                case '(': addToken(LEFT_PAREN); break;
+                case ')': addToken(RIGHT_PAREN); break;
+                case '{': addToken(LEFT_BRACE); break;
+                case '}': addToken(RIGHT_BRACE); break;
+                case ',': addToken(COMMA); break;
+                case '.': addToken(DOT); break;
+                case '-': addToken(MINUS); break;
+                case '+': addToken(PLUS); break;
+                case ';': addToken(SEMICOLON); break;
+                case '*': addToken(STAR); break;
+            }
+            advance();
         }
+
+        void advance() {
+            current++;
+        }
+
         bool isAtEnd() {
             return current >= source.length();
         }
@@ -31,12 +48,22 @@ class Scanner {
                 start = current;
                 scanToken();
             }
-            tokens.add(new Token(EOF_TOKEN, "", null, line));
+            tokens.push_back(Token(EOF_TOKEN, "", "", line));
             return tokens;
         }
 
-        // public void addToken()
-        
-};
+        void addToken(TokenType type) {
+            addToken(type, "");
+        }
 
-#endif
+        void addToken(TokenType type, string literal) {
+            string text = source.substr(start, current);
+            tokens.push_back(Token(type, text, literal, line));
+        }
+
+        void getTokens() {
+            for (int i = 0; i < tokens.size(); i++) {
+                cout << tokens[i].toString() << endl;
+            }
+        }
+};

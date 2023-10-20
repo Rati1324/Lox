@@ -2,14 +2,17 @@
 #include <fstream>
 #include <string>
 #include "tokenTypes.h"
+#include "token.h"
+// #include "scanner.h"
 using namespace std;
 
 bool hadError = false;
 
 void run(string source) {
-    for (int i = 0; i < source.length(); i++) {
-        cout << source[i] << endl;
-    }
+    // Scanner s = Scanner(source);
+    // for (int i = 0; i < source.length(); i++) {
+    //     cout << source[i] << endl;
+    // }
 }
 
 void runFile(char* filename) {
@@ -44,7 +47,8 @@ void runPrompt() {
 
 int main(int argc, char** argv) {
     cout << "hi" << endl;
-
+    Token t = Token(LEFT_PAREN, "(", "", 1);
+    // cout << tk.toString() << endl;
     if (argc > 2) {
         cout << "Usage: cLox [filename]" << endl;
     } else if (argc == 2) {
