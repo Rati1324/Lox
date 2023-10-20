@@ -1,27 +1,52 @@
-// #include <iostream>
-#include <cstdio>
+#include <iostream>
+// #include <cstdio>
 #include <fstream>
 #include <string>
 using namespace std;
 
-void read_file(char* filename) {
+void run(string source) {
+    for (int i = 0; i < source.length(); i++) {
+        cout << source[i] << endl;
+    }
+}
+
+string read_file(char* filename) {
     fstream my_file;
+    string source;
     my_file.open(filename, ios::in);
+
     if (!my_file) {
-        printf("File not found!");
+        cout << "File not found" << endl;
     }
     else {
         char ch;
-        printf("\n", ch);
-        while (my_file >> ch) {
-            printf("%c \n", ch);
+        while (my_file.get(ch)) {
+            source.push_back(ch);
         }
         my_file.close();
+    }
+    return source;
+}
+
+void runPrompt() {
+    string userInput;
+    while (1) {
+        cout << ">";
+        getline(cin, userInput);
+        if (userInput == "") break;
+        run(userInput);
     }
 }
 
 int main(int argc, char** argv) {
-    printf("%s", argv[1]);
-    read_file(argv[1]);
+    if (argc > 2) {
+        cout << "Usage: cLox [filename]" << endl;
+    } else if (argc == 2) {
+        string source = read_file(argv[1]);
+        run(source);
+    } else {
+        runPrompt();
+    }
+
     return 0;
 }
