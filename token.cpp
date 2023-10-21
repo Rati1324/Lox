@@ -1,5 +1,5 @@
-#include "tokenTypes.h"
-#include "token.h"
+#include "headers/tokenTypes.h"
+#include "headers/token.h"
 #include <string>
 using namespace std;
 

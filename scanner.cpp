@@ -1,69 +1,65 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include "token.h"
+#include "headers/token.h"
+#include "headers/scanner.h"
 
 using namespace std;
 
-class Scanner {
-    private:
-        string source;
-        vector<Token> tokens;
-        int start = 0;
-        int current = 0;
-        int line = 1;
+Scanner::Scanner(string source) {
+    this->source = source;
+    this->start = 0;
+    this->current = 0;
+    this->line = 1;
+}
 
-        void scanToken() {
-            char c = source[current];
-            switch (c) {
-                case '(': addToken(LEFT_PAREN); break;
-                case ')': addToken(RIGHT_PAREN); break;
-                case '{': addToken(LEFT_BRACE); break;
-                case '}': addToken(RIGHT_BRACE); break;
-                case ',': addToken(COMMA); break;
-                case '.': addToken(DOT); break;
-                case '-': addToken(MINUS); break;
-                case '+': addToken(PLUS); break;
-                case ';': addToken(SEMICOLON); break;
-                case '*': addToken(STAR); break;
-            }
-            advance();
-        }
+vector<Token> Scanner::scanTokens() {
+    while (!isAtEnd()) {
+        start = current;
+        scanToken();
+    }
+    Scanner::tokens.push_back(Token(EOF_TOKEN, "", "", line));
+    return tokens;
+}
 
-        void advance() {
-            current++;
-        }
+void Scanner::scanToken() {
+    char c = advance();
+    switch (c) {
+        case '(': addToken(LEFT_PAREN); break;
+        case ')': addToken(RIGHT_PAREN); break;
+        case '{': addToken(LEFT_BRACE); break;
+        case '}': addToken(RIGHT_BRACE); break;
+        case ',': addToken(COMMA); break;
+        case '.': addToken(DOT); break;
+        case '-': addToken(MINUS); break;
+        case '+': addToken(PLUS); break;
+        case ';': addToken(SEMICOLON); break;
+        case '*': addToken(STAR); break;
+    }
+}
 
-        bool isAtEnd() {
-            return current >= source.length();
-        }
+void Scanner::addToken(TokenType type) {
+    addToken(type, "");
+}
 
-    public:
-        Scanner(string source) {
-            this->source = source;
-        }
+void Scanner::addToken(TokenType type, string literal) {
+    cout << "sadsa" << endl;
+    string text = Scanner::source.substr(start, current);
+    tokens.push_back(Token(type, text, literal, line));
+}
 
-        vector<Token> scanTokens() {
-            while (!isAtEnd()) {
-                start = current;
-                scanToken();
-            }
-            tokens.push_back(Token(EOF_TOKEN, "", "", line));
-            return tokens;
-        }
+char Scanner::advance() {
+    Scanner::current++;
+    return Scanner::source[Scanner::current - 1];
+}
 
-        void addToken(TokenType type) {
-            addToken(type, "");
-        }
+bool Scanner::isAtEnd() {
+    return Scanner::current >= Scanner::source.length();
+}
 
-        void addToken(TokenType type, string literal) {
-            string text = source.substr(start, current);
-            tokens.push_back(Token(type, text, literal, line));
-        }
-
-        void getTokens() {
-            for (int i = 0; i < tokens.size(); i++) {
-                cout << tokens[i].toString() << endl;
-            }
-        }
-};
+void Scanner::getTokens() {
+    cout << "IN GETOKENS" << Scanner::tokens[0].toString() << endl;
+    for (int i = 0; i < Scanner::tokens.size(); i++) {
+        cout << Scanner::tokens[i].toString() << endl;
+    }
+}

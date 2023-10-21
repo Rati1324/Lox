@@ -1,9 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "tokenTypes.h"
-#include "token.h"
-// #include "scanner.h"
+#include "headers/tokenTypes.h"
+#include "headers/token.h"
+#include "headers/scanner.h"
 using namespace std;
 
 bool hadError = false;
@@ -46,10 +46,10 @@ void runPrompt() {
 }
 
 int main(int argc, char** argv) {
-    // cout << "hi" << endl;
-    Token t = Token(LEFT_PAREN, "(", "", 1);
-    // Token t = Token();
-    cout << t.toString() << endl;
+    cout << "hi" << endl;
+    Scanner s = Scanner("{(.)}");
+    s.scanTokens();
+    s.getTokens();
     if (argc > 2) {
         cout << "Usage: cLox [filename]" << endl;
     } else if (argc == 2) {
