@@ -3,6 +3,7 @@
 #include <vector>
 #include "headers/token.h"
 #include "headers/scanner.h"
+#include "headers/Lox.h"
 
 using namespace std;
 
@@ -35,7 +36,20 @@ void Scanner::scanToken() {
         case '+': addToken(PLUS); break;
         case ';': addToken(SEMICOLON); break;
         case '*': addToken(STAR); break;
+        case '!':
+            addToken(match('=') ? BANG_EQUAL : BANG);
+            break;
+        default:
+            error(line, "Unexpected character.");
+            break;
     }
+}
+
+bool Scanner::match(char expected) {
+    if (isAtEnd()) return false;
+    if (Scanner::source[current] != expected) return false;
+    current++;
+    return true;
 }
 
 void Scanner::addToken(TokenType type) {

@@ -19,7 +19,8 @@ class Scanner {
         void scanToken();
         char advance();
         bool isAtEnd();
-
+        bool match(char expected); 
+        
     public:
         Scanner(string source);
         vector<Token> scanTokens();
