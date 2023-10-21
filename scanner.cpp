@@ -24,7 +24,8 @@ vector<Token> Scanner::scanTokens() {
 }
 
 void Scanner::scanToken() {
-    char c = advance();
+    char c = source[current];
+    current++;
     switch (c) {
         case '(': addToken(LEFT_PAREN); break;
         case ')': addToken(RIGHT_PAREN); break;
@@ -50,7 +51,7 @@ void Scanner::scanToken() {
             break;
         case '/':
             if (match('/')) {
-                while (peek()) advance();
+                while (match('\n') || isAtEnd()) current++;
             } else {
                 addToken(SLASH);
             };
@@ -68,11 +69,6 @@ bool Scanner::match(char expected) {
     return true;
 }
 
-bool Scanner::peek() {
-    cout << "source[current]" << source[current] << endl;
-    return !isAtEnd() && (source[current] != '\n');
-}
-
 void Scanner::addToken(TokenType type) {
     addToken(type, "");
 }
@@ -82,13 +78,8 @@ void Scanner::addToken(TokenType type, string literal) {
     tokens.push_back(Token(type, text, literal, line));
 }
 
-char Scanner::advance() {
-    Scanner::current++;
-    return Scanner::source[Scanner::current - 1];
-}
-
 bool Scanner::isAtEnd() {
-    return Scanner::current >= Scanner::source.length() - 1;
+    return current >= Scanner::source.length();
 }
 
 void Scanner::getTokens() {

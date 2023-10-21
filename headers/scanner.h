@@ -17,7 +17,6 @@ class Scanner {
         int line;
 
         void scanToken();
-        char advance();
         bool isAtEnd();
         bool match(char expected); 
         bool peek(); 
