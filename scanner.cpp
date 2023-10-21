@@ -43,7 +43,6 @@ void Scanner::addToken(TokenType type) {
 }
 
 void Scanner::addToken(TokenType type, string literal) {
-    cout << "sadsa" << endl;
     string text = Scanner::source.substr(start, current);
     tokens.push_back(Token(type, text, literal, line));
 }
@@ -58,7 +57,6 @@ bool Scanner::isAtEnd() {
 }
 
 void Scanner::getTokens() {
-    cout << "IN GETOKENS" << Scanner::tokens[0].toString() << endl;
     for (int i = 0; i < Scanner::tokens.size(); i++) {
         cout << Scanner::tokens[i].toString() << endl;
     }
