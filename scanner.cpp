@@ -24,8 +24,7 @@ vector<Token> Scanner::scanTokens() {
 }
 
 void Scanner::scanToken() {
-    char c = source[current];
-    current++;
+    char c = source[current++];
     switch (c) {
         case '(': addToken(LEFT_PAREN); break;
         case ')': addToken(RIGHT_PAREN); break;
@@ -51,7 +50,8 @@ void Scanner::scanToken() {
             break;
         case '/':
             if (match('/')) {
-                while (match('\n') || isAtEnd()) current++;
+                // THIS MIGHT BE INCORRECT CHECK AGAIN
+                while (!match('\n') && !isAtEnd()) current++;
             } else {
                 addToken(SLASH);
             };
