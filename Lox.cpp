@@ -10,7 +10,6 @@ using namespace std;
 bool hadError = false;
 
 void error(int line, string message) {
-    cout << "in error" << endl;
     report(line, "", message);
 }
 
@@ -45,14 +44,17 @@ void runFile(char* filename) {
     if (hadError) exit(64);
 }
 
-// this one doens't scan the tokens it just runs the prompt
 void runPrompt() {
     string userInput;
     while (1) {
         cout << ">";
         getline(cin, userInput);
         if (userInput == "") break;
-        run(userInput);
+        // run(userInput);
+
+        Scanner s = Scanner(userInput);
+        s.scanTokens();
+        s.getTokens();
         hadError = false;
     }
 }
@@ -72,3 +74,7 @@ int main(int argc, char** argv) {
     }
     return 0;
 }
+
+// TODO:
+// Investigate why: ++= tokenizes to: +, +=, =
+// Each char should be a separate token.

@@ -20,7 +20,8 @@ class Scanner {
         char advance();
         bool isAtEnd();
         bool match(char expected); 
-        
+        bool peek(); 
+
     public:
         Scanner(string source);
         vector<Token> scanTokens();

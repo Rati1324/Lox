@@ -39,6 +39,22 @@ void Scanner::scanToken() {
         case '!':
             addToken(match('=') ? BANG_EQUAL : BANG);
             break;
+        case '=':
+            addToken(match('=') ? EQUAL_EQUAL : EQUAL);
+            break;
+        case '<':
+            addToken(match('=') ? LESS_EQUAL : LESS);
+            break;
+        case '>':
+            addToken(match('=') ? GREATER_EQUAL : GREATER);
+            break;
+        case '/':
+            if (match('/')) {
+                while (peek()) advance();
+            } else {
+                addToken(SLASH);
+            };
+            break;
         default:
             error(line, "Unexpected character.");
             break;
@@ -50,6 +66,11 @@ bool Scanner::match(char expected) {
     if (Scanner::source[current] != expected) return false;
     current++;
     return true;
+}
+
+bool Scanner::peek() {
+    cout << "source[current]" << source[current] << endl;
+    return !isAtEnd() && (source[current] != '\n');
 }
 
 void Scanner::addToken(TokenType type) {
@@ -67,7 +88,7 @@ char Scanner::advance() {
 }
 
 bool Scanner::isAtEnd() {
-    return Scanner::current >= Scanner::source.length();
+    return Scanner::current >= Scanner::source.length() - 1;
 }
 
 void Scanner::getTokens() {
