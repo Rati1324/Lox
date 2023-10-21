@@ -74,7 +74,7 @@ void Scanner::addToken(TokenType type) {
 }
 
 void Scanner::addToken(TokenType type, string literal) {
-    string text = Scanner::source.substr(start, current);
+    string text = Scanner::source.substr(start, current - start);
     tokens.push_back(Token(type, text, literal, line));
 }
 

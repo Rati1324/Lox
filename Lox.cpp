@@ -60,7 +60,6 @@ void runPrompt() {
 }
 
 int main(int argc, char** argv) {
-    cout << c << endl;
     cout << "hi" << endl;
     Scanner s = Scanner("d");
     s.scanTokens();
@@ -79,3 +78,5 @@ int main(int argc, char** argv) {
 // TODO:
 // Investigate why: ++= tokenizes to: +, +=, =
 // Each char should be a separate token.
+// Turns out current is always incrementing which is then used as
+// The length of the substring 
