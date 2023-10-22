@@ -90,8 +90,9 @@ void Scanner::catchString() {
     }
 
     current++;
+
+    // this is supposed to strip surrounding quotes but it doesn't work
     string value = source.substr(start + 1, (current - start) - 1);
-    // why not return this and add token in the switch case like we always do?
     addToken(STRING, Literal{value, 0.0, true});
 }
 
@@ -100,7 +101,6 @@ void Scanner::catchNumber() {
 
     if (peek() == '.' && isDigit(peekNext())) {
         current++;
-
         while (isDigit(peek())) current++;
     }
 
