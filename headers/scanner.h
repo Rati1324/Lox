@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "token.h"
+#include "literal.h"
 #include <iostream>
 
 using namespace std;
@@ -23,7 +24,7 @@ struct Scanner {
     char peek(); 
     void catchString();
     void addToken(TokenType type);
-    void addToken(TokenType type, string literal);
+    void addToken(TokenType type, Literal lit);
     void getTokens();
     bool isDigit(char c);
     void catchNumber();

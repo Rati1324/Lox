@@ -1,13 +1,14 @@
 #include "headers/tokenTypes.h"
 #include "headers/token.h"
+#include "headers/literal.h"
 #include <string>
 using namespace std;
 
-Token::Token(TokenType type, std::string lexeme, std::string literal, int line) {
+Token::Token(TokenType type, std::string lexeme, Literal lit, int line) {
     this->type = type;
     this->lexeme = lexeme;
-    this->literal = literal;
     this->line = line;
+    this->lit = lit;
 }
 
 string Token::toString() const{

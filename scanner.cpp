@@ -4,6 +4,7 @@
 #include "headers/token.h"
 #include "headers/scanner.h"
 #include "headers/Lox.h"
+#include "headers/literal.h"
 
 using namespace std;
 
@@ -16,7 +17,7 @@ vector<Token> Scanner::scanTokens() {
         start = current;
         scanToken();
     }
-    Scanner::tokens.push_back(Token(EOF_TOKEN, "", "", line));
+    Scanner::tokens.push_back(Token(EOF_TOKEN, "", Literal{"", 0.0, NULL}, line));
     return tokens;
 }
 
@@ -91,7 +92,7 @@ void Scanner::catchString() {
     current++;
     string value = source.substr(start + 1, (current - start) - 1);
     // why not return this and add token in the switch case like we always do?
-    addToken(STRING, value);
+    addToken(STRING, Literal{value, 0.0, true});
 }
 
 void Scanner::catchNumber() {
@@ -104,8 +105,8 @@ void Scanner::catchNumber() {
     }
 
     string value = source.substr(start, current - start);
-    double d = stod(value);
-    addToken(NUMBER, value);
+    double valueNum = stod(value);
+    addToken(NUMBER, Literal{"", valueNum, false});
 }
 
 char Scanner::peek() {
@@ -113,21 +114,23 @@ char Scanner::peek() {
     return source[current];
 }
 
+void Scanner::addToken(TokenType type) {
+    addToken(type, Literal{"", 0.0, false});
+}
+
+void Scanner::addToken(TokenType type, Literal lit) {
+    string text = Scanner::source.substr(start, current - start);
+    Token tk = Token(type, text, lit, line);
+    tokens.push_back(tk);
+}
+
 char Scanner::peekNext() {
     if (current + 1 >= source.length()) return '\0';
     return source[current + 1];
 }
+
 bool Scanner::isDigit(char c) {
     return c >= '0' && c <= '9';
-}
-
-void Scanner::addToken(TokenType type) {
-    addToken(type, "");
-}
-
-void Scanner::addToken(TokenType type, string literal) {
-    string text = Scanner::source.substr(start, current - start);
-    tokens.push_back(Token(type, text, literal, line));
 }
 
 bool Scanner::isAtEnd() {
