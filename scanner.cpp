@@ -50,7 +50,7 @@ void Scanner::scanToken() {
             break;
         case '/':
             if (match('/')) {
-                while (!match('\n') && !isAtEnd()) current++;
+                while (peek() != '\n' && !isAtEnd()) current++;
             } else {
                 addToken(SLASH);
             };
@@ -62,6 +62,7 @@ void Scanner::scanToken() {
         case '\n':
             line++;
             break;
+        case '"': getString(); break;
         default:
             error(line, "Unexpected character.");
             break;
@@ -70,9 +71,31 @@ void Scanner::scanToken() {
 
 bool Scanner::match(char expected) {
     if (isAtEnd()) return false;
-    if (Scanner::source[current] != expected) return false;
+    if (source[current] != expected) return false;
     current++;
     return true;
+}
+
+char Scanner::peek() {
+    if (isAtEnd()) return '\0';
+    return source[current];
+}
+
+void Scanner::getString() {
+    while(peek() != '"' && !isAtEnd()) {
+        if (peek() == '\n') line++;
+        current++;
+    }
+
+    if (isAtEnd()) {
+        error(line, "Unterminated string.");
+        return;
+    }
+
+    current++;
+    string value = source.substr(start + 1, (current - start) - 1);
+    // why not return this and add token in the switch case like we always do?
+    addToken(STRING, value);
 }
 
 void Scanner::addToken(TokenType type) {

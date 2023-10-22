@@ -19,7 +19,8 @@ class Scanner {
         void scanToken();
         bool isAtEnd();
         bool match(char expected); 
-        bool peek(); 
+        char peek(); 
+        void getString();
 
     public:
         Scanner(string source);
