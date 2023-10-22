@@ -11,9 +11,9 @@ using namespace std;
 struct Scanner {
     string source;
     vector<Token> tokens;
-    int start;
-    int current;
-    int line;
+    int start = 0;
+    int current = 0;
+    int line = 1;
 
     Scanner(string source);
     vector<Token> scanTokens();
@@ -25,6 +25,9 @@ struct Scanner {
     void addToken(TokenType type);
     void addToken(TokenType type, string literal);
     void getTokens();
+    bool isDigit(char c);
+    void catchNumber();
+    char peekNext();
 };
 
 #endif

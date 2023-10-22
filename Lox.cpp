@@ -76,9 +76,3 @@ int main(int argc, char** argv) {
     }
     return 0;
 }
-
-// Done:
-// Investigate why: ++= tokenizes to: +, +=, =
-// Each char should be a separate token.
-// Turns out current is always incrementing which is then used as
-// The length of the substring 

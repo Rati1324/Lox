@@ -9,9 +9,6 @@ using namespace std;
 
 Scanner::Scanner(string source) {
     this->source = source;
-    this->start = 0;
-    this->current = 0;
-    this->line = 1;
 }
 
 vector<Token> Scanner::scanTokens() {
@@ -64,7 +61,11 @@ void Scanner::scanToken() {
             break;
         case '"': catchString(); break;
         default:
-            error(line, "Unexpected character.");
+            if (isDigit(c)) {
+                catchNumber();
+            } else {
+                error(line, "Unexpected character.");
+            }
             break;
     }
 }
@@ -74,11 +75,6 @@ bool Scanner::match(char expected) {
     if (source[current] != expected) return false;
     current++;
     return true;
-}
-
-char Scanner::peek() {
-    if (isAtEnd()) return '\0';
-    return source[current];
 }
 
 void Scanner::catchString() {
@@ -96,6 +92,33 @@ void Scanner::catchString() {
     string value = source.substr(start + 1, (current - start) - 1);
     // why not return this and add token in the switch case like we always do?
     addToken(STRING, value);
+}
+
+void Scanner::catchNumber() {
+    while (isDigit(peek())) current++;
+
+    if (peek() == '.' && isDigit(peekNext())) {
+        current++;
+
+        while (isDigit(peek())) current++;
+    }
+
+    string value = source.substr(start, current - start);
+    double d = stod(value);
+    addToken(NUMBER, value);
+}
+
+char Scanner::peek() {
+    if (isAtEnd()) return '\0';
+    return source[current];
+}
+
+char Scanner::peekNext() {
+    if (current + 1 >= source.length()) return '\0';
+    return source[current + 1];
+}
+bool Scanner::isDigit(char c) {
+    return c >= '0' && c <= '9';
 }
 
 void Scanner::addToken(TokenType type) {
