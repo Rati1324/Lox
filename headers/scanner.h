@@ -8,26 +8,23 @@
 
 using namespace std;
 
-class Scanner {
-    private:
-        string source;
-        vector<Token> tokens;
-        int start;
-        int current;
-        int line;
+struct Scanner {
+    string source;
+    vector<Token> tokens;
+    int start;
+    int current;
+    int line;
 
-        void scanToken();
-        bool isAtEnd();
-        bool match(char expected); 
-        char peek(); 
-        void getString();
-
-    public:
-        Scanner(string source);
-        vector<Token> scanTokens();
-        void addToken(TokenType type);
-        void addToken(TokenType type, string literal);
-        void getTokens();
+    Scanner(string source);
+    vector<Token> scanTokens();
+    void scanToken();
+    bool isAtEnd();
+    bool match(char expected); 
+    char peek(); 
+    void catchString();
+    void addToken(TokenType type);
+    void addToken(TokenType type, string literal);
+    void getTokens();
 };
 
 #endif

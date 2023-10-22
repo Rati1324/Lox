@@ -62,7 +62,7 @@ void Scanner::scanToken() {
         case '\n':
             line++;
             break;
-        case '"': getString(); break;
+        case '"': catchString(); break;
         default:
             error(line, "Unexpected character.");
             break;
@@ -81,7 +81,7 @@ char Scanner::peek() {
     return source[current];
 }
 
-void Scanner::getString() {
+void Scanner::catchString() {
     while(peek() != '"' && !isAtEnd()) {
         if (peek() == '\n') line++;
         current++;
