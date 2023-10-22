@@ -50,11 +50,17 @@ void Scanner::scanToken() {
             break;
         case '/':
             if (match('/')) {
-                // THIS MIGHT BE INCORRECT CHECK AGAIN
                 while (!match('\n') && !isAtEnd()) current++;
             } else {
                 addToken(SLASH);
             };
+            break;
+        case ' ':
+        case '\r':
+        case '\t':
+            break;
+        case '\n':
+            line++;
             break;
         default:
             error(line, "Unexpected character.");

@@ -20,9 +20,11 @@ void report(int line, string where, string message) {
 
 void run(string source) {
     Scanner s = Scanner(source);
-    for (int i = 0; i < source.length(); i++) {
-        cout << source[i] << endl;
-    }
+    s.scanTokens();
+    s.getTokens();
+    // for (int i = 0; i < source.length(); i++) {
+    //     cout << source[i] << endl;
+    // }
 }
 
 void runFile(char* filename) {
@@ -75,7 +77,7 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-// TODO:
+// Done:
 // Investigate why: ++= tokenizes to: +, +=, =
 // Each char should be a separate token.
 // Turns out current is always incrementing which is then used as
