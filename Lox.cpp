@@ -63,7 +63,7 @@ void runPrompt() {
 
 int main(int argc, char** argv) {
     cout << "hi" << endl;
-    Scanner s = Scanner("d");
+    Scanner s = Scanner("\"string example\"");
     s.scanTokens();
     s.getTokens();
 

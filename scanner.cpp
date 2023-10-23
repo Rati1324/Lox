@@ -53,10 +53,9 @@ void Scanner::scanToken() {
                 addToken(SLASH);
             };
             break;
-        case ' ':
-        case '\r':
-        case '\t':
-            break;
+        case ' ': break;
+        case '\r': break;
+        case '\t': break;
         case '\n':
             line++;
             break;
@@ -90,9 +89,7 @@ void Scanner::catchString() {
     }
 
     current++;
-
-    // this is supposed to strip surrounding quotes but it doesn't work
-    string value = source.substr(start + 1, (current - start) - 1);
+    string value = source.substr(start + 1, (current - start) - 2);
     addToken(STRING, Literal{value, 0.0, true});
 }
 

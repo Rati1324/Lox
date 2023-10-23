@@ -12,6 +12,5 @@ Token::Token(TokenType type, std::string lexeme, Literal lit, int line) {
 }
 
 string Token::toString() const{
-    // return type + " " + lexeme + " " + literal;
-    return lexeme;
+    return lit.isString ? lit.stringLiteral : to_string(lit.doubleLiteral);
 }
