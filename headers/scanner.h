@@ -29,6 +29,9 @@ struct Scanner {
     bool isDigit(char c);
     void catchNumber();
     char peekNext();
+    void identifier();
+    bool isAlpha(char c);
+    bool isAlphaNumeric(char c);
 };
 
 #endif

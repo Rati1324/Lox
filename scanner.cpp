@@ -63,6 +63,8 @@ void Scanner::scanToken() {
         default:
             if (isDigit(c)) {
                 catchNumber();
+            } else if (isAlpha(c)) {
+                identifier();
             } else {
                 error(line, "Unexpected character.");
             }
@@ -112,7 +114,7 @@ char Scanner::peek() {
 }
 
 void Scanner::addToken(TokenType type) {
-    addToken(type, Literal{"", 0.0, false});
+    addToken(type, Literal{"", 0.0, true});
 }
 
 void Scanner::addToken(TokenType type, Literal lit) {
@@ -126,6 +128,22 @@ char Scanner::peekNext() {
     return source[current + 1];
 }
 
+void Scanner::identifier() {
+    while (isAlphaNumeric(peek())) current++;
+    addToken(IDENTIFIER);
+}
+
+bool Scanner::isAlpha(char c) {
+    return 
+        (c >= 'a' && c <= 'z') ||
+        (c >= 'A' && c <= 'Z') ||
+        c == '_';
+}
+
+bool Scanner::isAlphaNumeric(char c) {
+    return isAlpha(c) || isDigit(c);
+}
+
 bool Scanner::isDigit(char c) {
     return c >= '0' && c <= '9';
 }
@@ -135,7 +153,7 @@ bool Scanner::isAtEnd() {
 }
 
 void Scanner::getTokens() {
-    for (int i = 0; i < Scanner::tokens.size(); i++) {
+    for (int i = 0; i < Scanner::tokens.size() - 1; i++) {
         cout << Scanner::tokens[i].toString() << endl;
     }
 }
