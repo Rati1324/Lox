@@ -3,7 +3,7 @@
 #include <vector>
 #include "headers/token.h"
 #include "headers/scanner.h"
-#include "headers/Lox.h"
+#include "headers/lox.h"
 #include "headers/literal.h"
 
 using namespace std;
@@ -133,6 +133,10 @@ void Scanner::identifier() {
     addToken(IDENTIFIER);
 }
 
+bool Scanner::isAlphaNumeric(char c) {
+    return isAlpha(c) || isDigit(c);
+}
+
 bool Scanner::isAlpha(char c) {
     return 
         (c >= 'a' && c <= 'z') ||
@@ -140,13 +144,10 @@ bool Scanner::isAlpha(char c) {
         c == '_';
 }
 
-bool Scanner::isAlphaNumeric(char c) {
-    return isAlpha(c) || isDigit(c);
-}
-
 bool Scanner::isDigit(char c) {
     return c >= '0' && c <= '9';
 }
+
 
 bool Scanner::isAtEnd() {
     return current >= Scanner::source.length();

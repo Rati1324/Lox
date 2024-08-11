@@ -4,6 +4,8 @@
 #include <string>
 using namespace std;
 
+Token::Token(){};
+
 Token::Token(TokenType type, std::string lexeme, Literal lit, int line) {
     this->type = type;
     this->lexeme = lexeme;

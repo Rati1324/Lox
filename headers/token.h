@@ -13,6 +13,7 @@ struct Token {
     double doubleLiteral = 0.0;
     int line;
 
+    Token();
     Token(TokenType type, std::string lexeme, Literal, int line);
     std::string toString() const;
 };
