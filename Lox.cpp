@@ -15,7 +15,7 @@ void runPrompt();
 void runFile(char* filename);
 
 int main(int argc, char** argv) {
-    cout << "test" << endl;
+    cout << "test2" << endl;
     Scanner s = Scanner("\"string example\"");
     s.scanTokens();
     s.getTokens();
