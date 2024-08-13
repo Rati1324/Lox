@@ -16,17 +16,17 @@ void runFile(char* filename);
 
 int main(int argc, char** argv) {
     cout << "hi" << endl;
-    // Scanner s = Scanner("\"string example\"");
-    // s.scanTokens();
-    // s.getTokens();
+    Scanner s = Scanner("\"string example\"");
+    s.scanTokens();
+    s.getTokens();
 
-    // if (argc > 2) {
-    //     cout << "Usage: cLox [filename]" << endl;
-    // } else if (argc == 2) {
-    //     runFile(argv[1]);
-    // } else {
-    //     runPrompt();
-    // }
+    if (argc > 2) {
+        cout << "Usage: cLox [filename]" << endl;
+    } else if (argc == 2) {
+        runFile(argv[1]);
+    } else {
+        runPrompt();
+    }
     return 0;
 }
 
