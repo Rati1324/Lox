@@ -1,15 +1,11 @@
-// ToDo
-// unable to write constructor for Binary struct in expr.cpp file
-
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "headers/expr.h"
+// #include "headers/token.h"
 #include "headers/tokenTypes.h"
-#include "headers/token.h"
 #include "headers/scanner.h"
 #include "headers/lox.h"
-#include "headers/expr.h"
-#include "headers/literal.h"
 
 using namespace std;
 
@@ -24,13 +20,13 @@ int main(int argc, char** argv) {
     // s.scanTokens();
     // s.getTokens();
 
-    if (argc > 2) {
-        cout << "Usage: cLox [filename]" << endl;
-    } else if (argc == 2) {
-        runFile(argv[1]);
-    } else {
-        runPrompt();
-    }
+    // if (argc > 2) {
+    //     cout << "Usage: cLox [filename]" << endl;
+    // } else if (argc == 2) {
+    //     runFile(argv[1]);
+    // } else {
+    //     runPrompt();
+    // }
     return 0;
 }
 
