@@ -2,10 +2,10 @@
 #include <fstream>
 #include <string>
 #include "headers/expr.h"
-// #include "headers/token.h"
 #include "headers/tokenTypes.h"
 #include "headers/scanner.h"
 #include "headers/lox.h"
+#include "headers/astPrinter.h"
 
 using namespace std;
 
@@ -16,9 +16,15 @@ void runFile(char* filename);
 
 int main(int argc, char** argv) {
     cout << "hi" << endl;
-    Scanner s = Scanner("\"string example\"");
-    s.scanTokens();
-    s.getTokens();
+    // Binary b = Binary(Literal("", 2.0, false), Token(PLUS, "+", Literal("+", 0.0, true), 1), Literal("", 1.0, false));
+    // Scanner s = Scanner("\"string example\"");
+    // s.scanTokens();
+    // s.getTokens();
+
+    Literal l = Literal("", 2.0, false);
+    AstPrinter ap = AstPrinter();
+    ap.print(&l);
+    // l.accept();
 
     if (argc > 2) {
         cout << "Usage: cLox [filename]" << endl;

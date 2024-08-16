@@ -148,7 +148,6 @@ bool Scanner::isDigit(char c) {
     return c >= '0' && c <= '9';
 }
 
-
 bool Scanner::isAtEnd() {
     return current >= Scanner::source.length();
 }
